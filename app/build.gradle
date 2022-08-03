@@ -29,6 +29,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -40,6 +43,20 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-rc02'
+    // LiveData
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-rc02'
+    // ViewModel utilities for Compose
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-rc02'
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-rc02'
+    //Coroutins
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
+    // Fragment
+    implementation 'androidx.fragment:fragment-ktx:1.5.1'
+    //Activity
+    implementation 'androidx.activity:activity-ktx:1.5.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

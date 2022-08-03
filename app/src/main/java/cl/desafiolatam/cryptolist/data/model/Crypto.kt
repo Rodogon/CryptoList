@@ -1,4 +1,4 @@
-package cl.desafiolatam.cryptolist.model
+package cl.desafiolatam.cryptolist.data.model
 
 import com.google.gson.annotations.SerializedName
 
