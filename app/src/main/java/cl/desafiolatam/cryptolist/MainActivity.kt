@@ -2,11 +2,19 @@ package cl.desafiolatam.cryptolist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import cl.desafiolatam.cryptolist.core.RetrofitClient
+import cl.desafiolatam.cryptolist.data.model.Crypto
+import cl.desafiolatam.cryptolist.data.model.Data
 import cl.desafiolatam.cryptolist.databinding.ActivityMainBinding
-import cl.desafiolatam.cryptolist.ui.viewmodel.CryptomonedasViewModel
+import cl.desafiolatam.cryptolist.ui.view.CryptoAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Response
+import java.util.ArrayList
 
 /*
 [X] Creación del proyecto e inicialización de control de versiones
@@ -30,7 +38,7 @@ import cl.desafiolatam.cryptolist.ui.viewmodel.CryptomonedasViewModel
    [ ] actualizar fragmento de listado
    [ ] actualizar fragmento de detalle
 [X] corutinas (dependencias)
-[X] ViewModel (by viewModels()) -> Implementa el patrón factory [ ] Actualizar MainActivity y su layout
+[ ] ViewModel (by viewModels()) -> Implementa el patrón factory [ ] Actualizar MainActivity y su layout
 [ ] Fragmento de listado
    [ ] Crear Fragmento
    [ ] Layout de item list
@@ -54,15 +62,35 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val cryptomonedasViewModel = ViewModelProvider(this).get(CryptomonedasViewModel::class.java)
-        cryptomonedasViewModel.onCreate()
-
-        cryptomonedasViewModel.CryptoList.observe(this){
-
-        }
-
-
-
-
+        loadApiData()
     }
+
+    private fun initRecyclerView(cryptomonedas: ArrayList<Data>) {
+        val recyclerView = binding.rvcrypto
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = CryptoAdapter(cryptomonedas)
+    }
+
+    private fun loadApiData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val service = RetrofitClient.retrofitInstance()
+            val call: Response<Crypto> = service.getAllCrypto()
+            val crypto = call.body()
+            runOnUiThread {
+                if (call.isSuccessful) {
+                    if (crypto != null) {
+                        initRecyclerView(crypto.data)
+                    }
+                } else {
+                    showToast()
+                }
+            }
+        }
+    }
+
+    private fun showToast() {
+        Toast.makeText(this, "Ocurrió un error", Toast.LENGTH_SHORT).show()
+    }
+
+
 }
