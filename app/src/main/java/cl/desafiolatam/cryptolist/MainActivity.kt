@@ -3,11 +3,9 @@ package cl.desafiolatam.cryptolist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.desafiolatam.cryptolist.core.RetrofitClient
 import cl.desafiolatam.cryptolist.data.model.Crypto
-import cl.desafiolatam.cryptolist.data.model.Data
 import cl.desafiolatam.cryptolist.databinding.ActivityMainBinding
 import cl.desafiolatam.cryptolist.ui.view.CryptoAdapter
 import kotlinx.coroutines.CoroutineScope

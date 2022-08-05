@@ -4,11 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cl.desafiolatam.cryptolist.R
-import cl.desafiolatam.cryptolist.data.model.Crypto
-import cl.desafiolatam.cryptolist.data.model.Data
-import cl.desafiolatam.cryptolist.databinding.ItemCryptomonedasBinding
+import cl.desafiolatam.cryptolist.data.database.CryptoEntity
 
-class CryptoAdapter(private val cryptoList: ArrayList<Data>) : RecyclerView.Adapter<CryptoViewHolder>() {
+class CryptoAdapter(private val cryptoList: ArrayList<CryptoEntity>) : RecyclerView.Adapter<CryptoViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cryptomonedas, parent, false)
         return CryptoViewHolder(view)

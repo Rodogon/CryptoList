@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -40,7 +41,7 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     // Retrofit
@@ -55,13 +56,17 @@ dependencies {
     // Lifecycles only (without ViewModel or LiveData)
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-rc02'
     //Coroutins
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
     // Fragment
     implementation 'androidx.fragment:fragment-ktx:1.5.1'
     //Activity
     implementation 'androidx.activity:activity-ktx:1.5.1'
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.8'
+
+    //Room
+    kapt("androidx.room:room-compiler:2.4.2")
+    implementation("androidx.room:room-ktx:2.4.2")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
