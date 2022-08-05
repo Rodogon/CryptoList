@@ -28,4 +28,9 @@ class CryptoRepository(private val cryptoDao: CryptoDao) {
     suspend fun update(crypto: CryptoEntity) {
         cryptoDao.update(crypto)
     }
+
+    @WorkerThread
+    fun deleteAll() {
+        cryptoDao.deleteAll()
+    }
 }

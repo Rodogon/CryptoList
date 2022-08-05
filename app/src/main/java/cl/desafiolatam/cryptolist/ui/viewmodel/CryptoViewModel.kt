@@ -16,21 +16,16 @@ class CryptoViewModel(private val repository: CryptoRepository): ViewModel() {
     // - Repository is completely separated from the UI through the ViewModel.
     val allCrypto: LiveData<List<CryptoEntity>> by lazy {
         repository.allCrypto.also {
-            getUpdatdData()
+            getUpdatedData()
         }
     }
 
-    private fun getUpdatdData() {
+    fun getUpdatedData() {
         runBlocking {
             UpdateData.getUpdatedData()
         }
     }
 
-    fun updateData() {
-        runBlocking {
-            UpdateData.updatedData()
-        }
-    }
 }
 
 class CryptoViewModelFactory(private val repository: CryptoRepository) : ViewModelProvider.Factory {

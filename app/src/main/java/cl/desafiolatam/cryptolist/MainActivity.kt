@@ -57,8 +57,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initRecyclerView()
+
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            cryptoViewModel.getUpdatedData()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun initRecyclerView() {
