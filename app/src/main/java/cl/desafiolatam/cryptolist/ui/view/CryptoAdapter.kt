@@ -1,22 +1,36 @@
 package cl.desafiolatam.cryptolist.ui.view
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.TaskStackBuilder.create
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import cl.desafiolatam.cryptolist.R
 import cl.desafiolatam.cryptolist.data.database.CryptoEntity
+import cl.desafiolatam.cryptolist.data.model.Crypto
 
-class CryptoAdapter(private val cryptoList: ArrayList<CryptoEntity>) : RecyclerView.Adapter<CryptoViewHolder>() {
+class CryptoAdapter : ListAdapter<CryptoEntity, CryptoViewHolder>(CryptoComparator()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cryptomonedas, parent, false)
-        return CryptoViewHolder(view)
+        return CryptoViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: CryptoViewHolder, position: Int) {
-        val item = cryptoList[position]
-        holder.bind(item)
+        val current = getItem(position)
+        holder.bind(current)
     }
 
-    override fun getItemCount(): Int = cryptoList.size
+    class CryptoComparator : DiffUtil.ItemCallback<CryptoEntity>(){
+        override fun areItemsTheSame(oldItem: CryptoEntity, newItem: CryptoEntity): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: CryptoEntity, newItem: CryptoEntity): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+    }
 
 }

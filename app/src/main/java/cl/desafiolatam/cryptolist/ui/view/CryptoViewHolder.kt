@@ -1,7 +1,10 @@
 package cl.desafiolatam.cryptolist.ui.view
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import cl.desafiolatam.cryptolist.R
 import cl.desafiolatam.cryptolist.data.database.CryptoEntity
 import cl.desafiolatam.cryptolist.databinding.ItemCryptomonedasBinding
 import com.squareup.picasso.Picasso
@@ -16,6 +19,13 @@ class CryptoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         Picasso.get().load(getImageFromSymbol(cryptoEntity.symbol)).into(binding.ivbitcoin)
     }
 
+    companion object {
+        fun create(parent: ViewGroup): CryptoViewHolder {
+            val view: View = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_cryptomonedas, parent, false)
+            return CryptoViewHolder(view)
+        }
+    }
 }
 
 private fun getImageFromSymbol(symbol: String?): String {

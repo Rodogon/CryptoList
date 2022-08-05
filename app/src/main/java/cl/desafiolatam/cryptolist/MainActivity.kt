@@ -2,17 +2,13 @@ package cl.desafiolatam.cryptolist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import cl.desafiolatam.cryptolist.core.RetrofitClient
-import cl.desafiolatam.cryptolist.data.model.Crypto
 import cl.desafiolatam.cryptolist.databinding.ActivityMainBinding
 import cl.desafiolatam.cryptolist.ui.view.CryptoAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Response
-import java.util.ArrayList
+import cl.desafiolatam.cryptolist.ui.viewmodel.CryptoViewModel
+import cl.desafiolatam.cryptolist.ui.viewmodel.CryptoViewModelFactory
+
 
 /*
 [X] Creación del proyecto e inicialización de control de versiones
@@ -53,41 +49,27 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    //private val cryptomonedasViewModel: CryptomonedasViewModel by viewModels()
+    private val cryptoViewModel: CryptoViewModel by viewModels{
+        CryptoViewModelFactory((application as CryptoListApp).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadApiData()
+        initRecyclerView()
     }
 
-    private fun initRecyclerView(cryptomonedas: ArrayList<Data>) {
+    private fun initRecyclerView() {
         val recyclerView = binding.rvcrypto
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CryptoAdapter(cryptomonedas)
-    }
+        val adapter = CryptoAdapter()
+        recyclerView.adapter = adapter
 
-    private fun loadApiData() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val service = RetrofitClient.retrofitInstance()
-            val call: Response<Crypto> = service.getAllCrypto()
-            val crypto = call.body()
-            runOnUiThread {
-                if (call.isSuccessful) {
-                    if (crypto != null) {
-                        initRecyclerView(crypto.data)
-                    }
-                } else {
-                    showToast()
-                }
-            }
+        cryptoViewModel.allCrypto.observe(this){
+            crypto -> crypto.let { adapter.submitList(it) }
         }
-    }
-
-    private fun showToast() {
-        Toast.makeText(this, "Ocurrió un error", Toast.LENGTH_SHORT).show()
     }
 
 

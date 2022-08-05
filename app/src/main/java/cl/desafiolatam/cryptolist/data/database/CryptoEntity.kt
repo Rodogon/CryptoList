@@ -7,7 +7,6 @@ import java.io.Serializable
 
 @Entity (tableName = "cryptomonedas_db")
 data class CryptoEntity(
-    @PrimaryKey
     val symbol: String?,
     val volumeUsd24Hr: String?,
     val marketCapUsd: String?,
@@ -17,6 +16,7 @@ data class CryptoEntity(
     val name: String?,
     val explorer: String?,
     val rank: String?,
+    @PrimaryKey
     val id: String,
     val maxSupply: String?,
     val supply: String?
