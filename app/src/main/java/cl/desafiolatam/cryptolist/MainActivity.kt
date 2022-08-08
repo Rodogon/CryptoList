@@ -1,8 +1,11 @@
 package cl.desafiolatam.cryptolist
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.desafiolatam.cryptolist.databinding.ActivityMainBinding
 import cl.desafiolatam.cryptolist.ui.view.CryptoAdapter
@@ -53,16 +56,33 @@ class MainActivity : AppCompatActivity() {
         CryptoViewModelFactory((application as CryptoListApp).repository)
     }
 
+    private lateinit var sharedPreferences: SharedPreferences
+    private val SHARED_USER_NAME = "username"
+    private val SHARED_NAME = "SharedBD"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initRecyclerView()
-
+        initSharedPreferences()
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             cryptoViewModel.getUpdatedData()
             binding.swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun initSharedPreferences() {
+        sharedPreferences = getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE)
+        addAfterEdit()
+        binding.etname.setText(sharedPreferences.getString(SHARED_USER_NAME, ""))
+
+    }
+
+    private fun addAfterEdit() {
+        binding.etname.doAfterTextChanged {
+            sharedPreferences.edit().putString(SHARED_USER_NAME, it.toString()).apply()
         }
     }
 
@@ -71,7 +91,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = CryptoAdapter()
         recyclerView.adapter = adapter
-
         cryptoViewModel.allCrypto.observe(this){
             crypto -> crypto.let { adapter.submitList(it) }
         }
