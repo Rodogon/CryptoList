@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/detail_fragment"
+    android:tag="detail_f"
+    tools:context=".ui.fragment.CryptoDetail">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/celeste">
+
+        <ImageView
+            android:id="@+id/ivbitcoin2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.2"
+            tools:ignore="MissingConstraints"
+            android:contentDescription="@string/cryto_image" />
+        <TextView
+            android:id="@+id/tvsymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/ivbitcoin2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.2"
+            android:text="BAT"
+            android:textStyle="bold"
+            android:textSize="26sp"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tvname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvsymbol"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            app:layout_constraintVertical_bias="0.2"
+            android:text="Basic Attention Token"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tvtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvname"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            app:layout_constraintVertical_bias="0.2"
+            android:text="14:24:32.77"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tvusd2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvname"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintVertical_bias="0.2"
+            android:text="0.689887"
+            android:textStyle="bold"
+            android:maxLength="10"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tvusdname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvname"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvusd2"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintVertical_bias="0.2"
+            android:text="USD$"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_marginTop="300dp">
+
+        <TextView
+            android:id="@+id/tvsupplyname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="Supply"/>
+        <TextView
+            android:id="@+id/tvsupply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvsupplyname"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="17193925.0000"/>
+
+        <TextView
+            android:id="@+id/tvmarketcapname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/tvsupplyname"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="Market Cap"/>
+        <TextView
+            android:id="@+id/tvmarketcap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/tvsupply"
+            app:layout_constraintStart_toEndOf="@id/tvmarketcapname"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="119179791817.67401"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

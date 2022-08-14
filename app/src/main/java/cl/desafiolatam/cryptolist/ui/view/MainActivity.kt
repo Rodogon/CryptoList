@@ -1,4 +1,4 @@
-package cl.desafiolatam.cryptolist
+package cl.desafiolatam.cryptolist.ui.view
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,8 +7,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
+import cl.desafiolatam.cryptolist.CryptoListApp
+import cl.desafiolatam.cryptolist.R
+import cl.desafiolatam.cryptolist.data.database.CryptoEntity
 import cl.desafiolatam.cryptolist.databinding.ActivityMainBinding
-import cl.desafiolatam.cryptolist.ui.view.CryptoAdapter
+import cl.desafiolatam.cryptolist.ui.fragment.CryptoDetail
 import cl.desafiolatam.cryptolist.ui.viewmodel.CryptoViewModel
 import cl.desafiolatam.cryptolist.ui.viewmodel.CryptoViewModelFactory
 
@@ -48,10 +51,11 @@ import cl.desafiolatam.cryptolist.ui.viewmodel.CryptoViewModelFactory
    [ ] Utilizar ViewModel para pedir información de detalle
 [ ] Nombre de usuario utilizando SharedPreferences
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
-
+    //private lateinit var listener: OnItemClickListener
+    private val fragmentManager = supportFragmentManager
     private val cryptoViewModel: CryptoViewModel by viewModels{
         CryptoViewModelFactory((application as CryptoListApp).repository)
     }
@@ -64,8 +68,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initRecyclerView()
+        //initRecyclerView()
         initSharedPreferences()
+
+        val recyclerView = binding.rvcrypto
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter = CryptoAdapter(this)
+        recyclerView.adapter = adapter
+
+        cryptoViewModel.allCrypto.observe(this){
+                crypto -> crypto.let { adapter.submitList(it) }
+        }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             cryptoViewModel.getUpdatedData()
@@ -86,13 +99,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initRecyclerView() {
+    /*private fun initRecyclerView() {
         val recyclerView = binding.rvcrypto
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = CryptoAdapter()
+        val adapter = CryptoAdapter(listener)
         recyclerView.adapter = adapter
         cryptoViewModel.allCrypto.observe(this){
-            crypto -> crypto.let { adapter.submitList(it) }
+            crypto -> crypto.let { adapter.submitList(it, this) }
+        }
+    }
+     */
+
+    override fun onItemClickListener(crypto: CryptoEntity) {
+
+        val bundle = Bundle()
+        bundle.putSerializable("cryptoDetail", crypto)
+
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = CryptoDetail()
+        fragment.arguments = bundle
+
+        fragmentTransaction.addToBackStack("detail_f")
+        fragmentTransaction.add(R.id.fgcontainer, fragment)
+        fragmentTransaction.commit()
+    }
+
+    override fun onBackPressed() {
+        if (fragmentManager.backStackEntryCount > 0) {
+            fragmentManager.popBackStackImmediate()
+        } else {
+            super.onBackPressed()
         }
     }
 

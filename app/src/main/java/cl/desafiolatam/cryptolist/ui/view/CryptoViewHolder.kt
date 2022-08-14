@@ -13,10 +13,14 @@ import java.util.*
 class CryptoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemCryptomonedasBinding.bind(view)
-    fun bind(cryptoEntity: CryptoEntity){
+    fun bind(cryptoEntity: CryptoEntity, listener: OnItemClickListener){
         binding.tvcryptomoneda.text = cryptoEntity.symbol
         binding.tvvalor.text = cryptoEntity.priceUsd
         Picasso.get().load(getImageFromSymbol(cryptoEntity.symbol)).into(binding.ivbitcoin)
+
+        binding.itemContainerCv.setOnClickListener {
+            listener.onItemClickListener(cryptoEntity)
+        }
     }
 
     companion object {
