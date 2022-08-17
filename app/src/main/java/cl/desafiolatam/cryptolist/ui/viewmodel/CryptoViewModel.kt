@@ -3,7 +3,6 @@ package cl.desafiolatam.cryptolist.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asFlow
 import cl.desafiolatam.cryptolist.data.database.CryptoEntity
 import cl.desafiolatam.cryptolist.data.repository.CryptoRepository
 import cl.desafiolatam.cryptolist.utils.UpdateData

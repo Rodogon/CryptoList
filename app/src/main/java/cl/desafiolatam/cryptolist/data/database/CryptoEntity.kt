@@ -1,6 +1,6 @@
 package cl.desafiolatam.cryptolist.data.database
 
-import androidx.room.Embedded
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
@@ -21,10 +21,3 @@ data class CryptoEntity(
     val maxSupply: String?,
     val supply: String?
 ): Serializable
-/*@Entity (tableName = "cryptomonedas_db")
-class CryptoEntity(
-    @Embedded
-    val dataCrypto: ArrayList<DataCrypto>,
-    val timestamp: Long
-)
- */

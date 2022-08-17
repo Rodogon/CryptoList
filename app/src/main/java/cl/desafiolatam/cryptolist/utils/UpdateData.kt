@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 class UpdateData {
     companion object {
 
-        // ESTE METODO SIRVE PARA OBTENER LOS DATOS ACTUALIZADOS CUANDO SE INSTALA LA APP
 
         suspend fun getUpdatedData() = coroutineScope {
             launch(Dispatchers.IO) {

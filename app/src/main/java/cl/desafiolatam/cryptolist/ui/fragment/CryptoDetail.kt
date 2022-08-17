@@ -12,13 +12,11 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import cl.desafiolatam.cryptolist.R
 import cl.desafiolatam.cryptolist.data.database.CryptoEntity
-import cl.desafiolatam.cryptolist.databinding.ActivityMainBinding
-import cl.desafiolatam.cryptolist.databinding.FragmentCryptoDetailBinding
+
 import com.squareup.picasso.Picasso
-import java.time.Instant
+
 import java.time.LocalTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
+
 import java.util.*
 
 
@@ -49,8 +47,7 @@ class CryptoDetail : Fragment() {
         assert(arguments != null)
         val crypto = requireArguments()["cryptoDetail"] as CryptoEntity?
         val view = inflater.inflate(R.layout.fragment_crypto_detail, container, false)
-        //binding = FragmentCryptoDetailBinding.inflate(inflater)
-            //ActivityMainBinding.inflate(layoutInflater)
+
         val imageView = view.findViewById<ImageView>(R.id.ivbitcoin2)
         val symbol = view.findViewById<TextView>(R.id.tvsymbol)
         val name = view.findViewById<TextView>(R.id.tvname)
@@ -68,15 +65,11 @@ class CryptoDetail : Fragment() {
         marketCap.text = crypto?.marketCapUsd
 
 
-            //Picasso.get().load(getnewImageFromSymbol(crypto?.symbol)).into(binding.ivbitcoin2)
-
-
-
         // Inflate the layout for this fragment
         return view
     }
 
-    fun getnewImageFromSymbol(symbol: String?): String {
+    private fun getnewImageFromSymbol(symbol: String?): String {
         return "https://static.coincap.io/assets/icons/${symbol?.lowercase(Locale.ROOT)}@2x.png"
     }
 

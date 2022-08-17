@@ -1,17 +1,16 @@
 package cl.desafiolatam.cryptolist.ui.view
 
 
-import android.view.LayoutInflater
+
 import android.view.ViewGroup
-import androidx.core.app.TaskStackBuilder.create
+
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import cl.desafiolatam.cryptolist.R
-import cl.desafiolatam.cryptolist.data.database.CryptoEntity
-import cl.desafiolatam.cryptolist.data.model.Crypto
 
-class CryptoAdapter( val listener: OnItemClickListener) : ListAdapter<CryptoEntity, CryptoViewHolder>(CryptoComparator()) {
+import cl.desafiolatam.cryptolist.data.database.CryptoEntity
+
+
+class CryptoAdapter(private val listener: OnItemClickListener) : ListAdapter<CryptoEntity, CryptoViewHolder>(CryptoComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoViewHolder {
         return CryptoViewHolder.create(parent)

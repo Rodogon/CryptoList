@@ -2,12 +2,9 @@ package cl.desafiolatam.cryptolist.data.repository
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import cl.desafiolatam.cryptolist.core.RetrofitClient
 import cl.desafiolatam.cryptolist.data.database.CryptoDao
-import cl.desafiolatam.cryptolist.data.database.CryptoDatabase
 import cl.desafiolatam.cryptolist.data.database.CryptoEntity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+
 
 class CryptoRepository(private val cryptoDao: CryptoDao) {
     // Room executes all queries on a separate thread.
